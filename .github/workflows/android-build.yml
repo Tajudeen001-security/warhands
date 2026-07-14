@@ -52,18 +52,28 @@ jobs:
           mkdir -p ~/.config/godot
           ANDROID_SDK_PATH="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/root/android-sdk}}"
           JAVA_SDK_PATH="${JAVA_HOME:-/usr/lib/jvm/default-java}"
-          cat > ~/.config/godot/editor_settings-4.tres << EOF
-          [gd_resource type="Resource" format=3]
 
-          [resource]
-          export/android/android_sdk_path = "${ANDROID_SDK_PATH}"
-          export/android/java_sdk_path = "${JAVA_SDK_PATH}"
-          export/android/debug_keystore = "/root/.android/debug.keystore"
-          export/android/debug_keystore_user = "androiddebugkey"
-          export/android/debug_keystore_pass = "android"
-          EOF
+          # Let Godot create its own real editor_settings file first, so we
+          # inherit its exact expected format instead of guessing it.
+          godot --headless --editor --quit-after 1 || true
+
+          SETTINGS_FILE=~/.config/godot/editor_settings-4.tres
+          if [ ! -f "$SETTINGS_FILE" ]; then
+            echo "[gd_resource type=\"EditorSettings\" format=3]" > "$SETTINGS_FILE"
+            echo "" >> "$SETTINGS_FILE"
+            echo "[resource]" >> "$SETTINGS_FILE"
+          fi
+
+          {
+            echo "export/android/android_sdk_path = \"${ANDROID_SDK_PATH}\""
+            echo "export/android/java_sdk_path = \"${JAVA_SDK_PATH}\""
+            echo "export/android/debug_keystore = \"/root/.android/debug.keystore\""
+            echo "export/android/debug_keystore_user = \"androiddebugkey\""
+            echo "export/android/debug_keystore_pass = \"android\""
+          } >> "$SETTINGS_FILE"
+
           echo "----- editor_settings-4.tres -----"
-          cat ~/.config/godot/editor_settings-4.tres
+          cat "$SETTINGS_FILE"
 
       - name: Create build output folder
         run: mkdir -v -p build
