@@ -1,7 +1,5 @@
 name: Build Android APK
 
-# Runs on every push/PR to main, and can also be triggered manually from
-# the "Actions" tab in GitHub with the "Run workflow" button.
 on:
   push:
     branches: [ main ]
@@ -12,9 +10,6 @@ on:
 jobs:
   export-android:
     runs-on: ubuntu-latest
-    # This container image ships Godot 4.3 + Android export templates +
-    # Android SDK/build-tools already installed, so we don't have to
-    # assemble that toolchain by hand on every run.
     container:
       image: barichello/godot-ci:4.3
 
@@ -50,11 +45,11 @@ jobs:
       - name: Point Godot's Editor Settings at the SDK/Java/keystore
         run: |
           mkdir -p ~/.config/godot
-          ANDROID_SDK_PATH="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/root/android-sdk}}"
-          JAVA_SDK_PATH="${JAVA_HOME:-/usr/lib/jvm/default-java}"
+          ANDROID_SDK_PATH="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/lib/android-sdk}}"
+          JAVA_BIN="$(readlink -f "$(which java)")"
+          JAVA_SDK_PATH="$(dirname "$(dirname "$JAVA_BIN")")"
+          echo "Resolved JAVA_SDK_PATH=$JAVA_SDK_PATH"
 
-          # Let Godot create its own real editor_settings file first, so we
-          # inherit its exact expected format instead of guessing it.
           godot --headless --editor --quit-after 1 || true
 
           SETTINGS_FILE=~/.config/godot/editor_settings-4.tres
