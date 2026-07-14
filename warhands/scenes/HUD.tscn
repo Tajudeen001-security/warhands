@@ -1,0 +1,138 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="1"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExternalResource("1")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 30.0
+offset_top = 40.0
+offset_right = 330.0
+offset_bottom = 66.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = 30.0
+offset_top = 10.0
+offset_right = 330.0
+offset_bottom = 36.0
+text = "100 / 100"
+
+[node name="WeaponLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -230.0
+offset_right = -30.0
+offset_bottom = -200.0
+horizontal_alignment = 2
+text = "AR-Vanta"
+
+[node name="AmmoLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -195.0
+offset_right = -30.0
+offset_bottom = -160.0
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 34
+text = "30 / 30"
+
+[node name="ReloadLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -260.0
+offset_right = -30.0
+offset_bottom = -232.0
+horizontal_alignment = 2
+text = "Reloading..."
+
+[node name="FireButton" type="TouchScreenButton" parent="."]
+position = Vector2(-160, -160)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+shape_centered = true
+
+[node name="FireLabel" type="Label" parent="FireButton"]
+offset_left = -30.0
+offset_top = -12.0
+offset_right = 30.0
+offset_bottom = 12.0
+text = "FIRE"
+
+[node name="ReloadButton" type="TouchScreenButton" parent="."]
+position = Vector2(-260, -260)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ReloadBtnLabel" type="Label" parent="ReloadButton"]
+offset_left = -30.0
+offset_top = -12.0
+offset_right = 30.0
+offset_bottom = 12.0
+text = "RLD"
+
+[node name="WeaponButtons" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -100.0
+offset_right = 260.0
+offset_bottom = -60.0
+
+[node name="Weapon1" type="Button" parent="WeaponButtons"]
+layout_mode = 2
+text = "1"
+
+[node name="Weapon2" type="Button" parent="WeaponButtons"]
+layout_mode = 2
+text = "2"
+
+[node name="Weapon3" type="Button" parent="WeaponButtons"]
+layout_mode = 2
+text = "3"
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 110.0
+offset_bottom = 116.0
+text = "Exit"
+
+[node name="BannerLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 300.0
+offset_bottom = 360.0
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 46
+text = "ELIMINATED"
+
+[connection signal="pressed" from="FireButton" to="." method="_on_fire_button_pressed"]
+[connection signal="pressed" from="ReloadButton" to="." method="_on_reload_button_pressed"]
+[connection signal="pressed" from="WeaponButtons/Weapon1" to="." method="_on_weapon_1_pressed"]
+[connection signal="pressed" from="WeaponButtons/Weapon2" to="." method="_on_weapon_2_pressed"]
+[connection signal="pressed" from="WeaponButtons/Weapon3" to="." method="_on_weapon_3_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

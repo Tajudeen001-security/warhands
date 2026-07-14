@@ -1,0 +1,135 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/Bot.tscn" id="2"]
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+size = Vector3(80, 1, 80)
+
+[sub_resource type="BoxShape3D" id="GroundShape"]
+size = Vector3(80, 1, 80)
+
+[sub_resource type="StandardMaterial3D" id="GroundMat"]
+albedo_color = Color(0.78, 0.68, 0.45, 1)
+
+[sub_resource type="BoxMesh" id="CoverMesh"]
+size = Vector3(3, 2.2, 3)
+
+[sub_resource type="BoxShape3D" id="CoverShape"]
+size = Vector3(3, 2.2, 3)
+
+[sub_resource type="StandardMaterial3D" id="CoverMat"]
+albedo_color = Color(0.55, 0.45, 0.35, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
+sky_top_color = Color(0.4, 0.55, 0.75, 1)
+sky_horizon_color = Color(0.75, 0.7, 0.6, 1)
+
+[sub_resource type="Sky" id="SkyRes"]
+sky_material = SubResource("SkyMat")
+
+[sub_resource type="Environment" id="EnvRes"]
+background_mode = 2
+sky = SubResource("SkyRes")
+
+[node name="Map1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("EnvRes")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8, -0.3, 0.5, 0, 0.86, 0.5, -0.6, -0.4, 0.68, 0, 20, 0)
+shadow_enabled = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("GroundMesh")
+surface_material_override/0 = SubResource("GroundMat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("GroundShape")
+
+[node name="CoverPieces" type="Node3D" parent="."]
+
+[node name="Cover1" type="StaticBody3D" parent="CoverPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.1, 5)
+
+[node name="Mesh" type="MeshInstance3D" parent="CoverPieces/Cover1"]
+mesh = SubResource("CoverMesh")
+surface_material_override/0 = SubResource("CoverMat")
+
+[node name="Shape" type="CollisionShape3D" parent="CoverPieces/Cover1"]
+shape = SubResource("CoverShape")
+
+[node name="Cover2" type="StaticBody3D" parent="CoverPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.1, 8)
+
+[node name="Mesh" type="MeshInstance3D" parent="CoverPieces/Cover2"]
+mesh = SubResource("CoverMesh")
+surface_material_override/0 = SubResource("CoverMat")
+
+[node name="Shape" type="CollisionShape3D" parent="CoverPieces/Cover2"]
+shape = SubResource("CoverShape")
+
+[node name="Cover3" type="StaticBody3D" parent="CoverPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -15)
+
+[node name="Mesh" type="MeshInstance3D" parent="CoverPieces/Cover3"]
+mesh = SubResource("CoverMesh")
+surface_material_override/0 = SubResource("CoverMat")
+
+[node name="Shape" type="CollisionShape3D" parent="CoverPieces/Cover3"]
+shape = SubResource("CoverShape")
+
+[node name="Cover4" type="StaticBody3D" parent="CoverPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1.1, -8)
+
+[node name="Mesh" type="MeshInstance3D" parent="CoverPieces/Cover4"]
+mesh = SubResource("CoverMesh")
+surface_material_override/0 = SubResource("CoverMat")
+
+[node name="Shape" type="CollisionShape3D" parent="CoverPieces/Cover4"]
+shape = SubResource("CoverShape")
+
+[node name="Cover5" type="StaticBody3D" parent="CoverPieces"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1.1, -10)
+
+[node name="Mesh" type="MeshInstance3D" parent="CoverPieces/Cover5"]
+mesh = SubResource("CoverMesh")
+surface_material_override/0 = SubResource("CoverMat")
+
+[node name="Shape" type="CollisionShape3D" parent="CoverPieces/Cover5"]
+shape = SubResource("CoverShape")
+
+[node name="BotPatrolPoints" type="Node3D" parent="."]
+
+[node name="P1" type="Marker3D" parent="BotPatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.5, 5)
+
+[node name="P2" type="Marker3D" parent="BotPatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 8)
+
+[node name="P3" type="Marker3D" parent="BotPatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -15)
+
+[node name="P4" type="Marker3D" parent="BotPatrolPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.5, -8)
+
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 20)
+
+[node name="Bot1" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 5)
+
+[node name="Bot2" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1, 8)
+
+[node name="Bot3" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -15)
+
+[node name="Bot4" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, -8)
+
+[node name="Bot5" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, -10)

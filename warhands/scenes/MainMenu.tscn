@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExternalResource("1")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.08, 0.1, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 80
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+text = "warHands"
+
+[node name="CharPanel" type="PanelContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="CharVBox" type="VBoxContainer" parent="Margin/VBox/CharPanel"]
+layout_mode = 2
+
+[node name="CharName" type="Label" parent="Margin/VBox/CharPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+text = "Raider"
+
+[node name="CharStats" type="Label" parent="Margin/VBox/CharPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "HP 100   SPD x1.00"
+
+[node name="CharNav" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CharPrev" type="Button" parent="Margin/VBox/CharNav"]
+layout_mode = 2
+text = "<"
+
+[node name="CharNext" type="Button" parent="Margin/VBox/CharNav"]
+layout_mode = 2
+text = ">"
+
+[node name="MapPanel" type="PanelContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="MapName" type="Label" parent="Margin/VBox/MapPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+text = "Dustbowl Ruins"
+
+[node name="MapNav" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="MapPrev" type="Button" parent="Margin/VBox/MapNav"]
+layout_mode = 2
+text = "<"
+
+[node name="MapNext" type="Button" parent="Margin/VBox/MapNav"]
+layout_mode = 2
+text = ">"
+
+[node name="LoadoutButton" type="Button" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Weapon Loadout"
+
+[node name="PlayButton" type="Button" parent="Margin/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 70)
+theme_override_font_sizes/font_size = 30
+text = "DROP IN"
+
+[connection signal="pressed" from="Margin/VBox/CharNav/CharPrev" to="." method="_on_char_prev_pressed"]
+[connection signal="pressed" from="Margin/VBox/CharNav/CharNext" to="." method="_on_char_next_pressed"]
+[connection signal="pressed" from="Margin/VBox/MapNav/MapPrev" to="." method="_on_map_prev_pressed"]
+[connection signal="pressed" from="Margin/VBox/MapNav/MapNext" to="." method="_on_map_next_pressed"]
+[connection signal="pressed" from="Margin/VBox/LoadoutButton" to="." method="_on_loadout_button_pressed"]
+[connection signal="pressed" from="Margin/VBox/PlayButton" to="." method="_on_play_button_pressed"]

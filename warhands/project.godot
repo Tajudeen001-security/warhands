@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are defined by the engine's code editor.
+
+config_version=5
+
+[application]
+
+config/name="warHands"
+config/description="warHands - Mobile Battle Royale Prototype"
+run/main_scene="res://scenes/Boot.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://assets/icon.svg"
+boot_splash/show_image=false
+
+[autoload]
+
+GameState="*res://scripts/GameState.gd"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/handheld/orientation="portrait"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[input]
+
+move_left={
+"deadzone": 0.2,
+"events": []
+}
+move_right={
+"deadzone": 0.2,
+"events": []
+}
+shoot={
+"deadzone": 0.2,
+"events": []
+}
+
+[physics]
+
+3d/default_gravity=24.0
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
